@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Judgement;
+use backend\models\Jud;
 
 /**
- * JudgementSearch represents the model behind the search form about `backend\models\Judgement`.
+ * JudSearch represents the model behind the search form about `backend\models\Jud`.
  */
-class JudgementSearch extends Judgement
+class JudSearch extends Jud
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class JudgementSearch extends Judgement
     public function rules()
     {
         return [
-            [['black_number', 'doc_type_id', 'black_append', 'red_number', 'doc_style_id', 'file_name', 'file_name1', 'scan_by', 'scan_datetime', 'upload_by', 'upload_datetime', 'create_at'], 'safe'],
+            [['black_number', 'doc_type_id', 'black_append', 'red_number', 'doc_style_id', 'file_name', 'scan_by', 'scan_datetime', 'upload_by', 'upload_datetime', 'create_at'], 'safe'],
             [['file_size', 'transfer_status', 'file_page'], 'integer'],
         ];
     }
@@ -41,7 +41,7 @@ class JudgementSearch extends Judgement
      */
     public function search($params)
     {
-        $query = Judgement::find();
+        $query = Jud::find();
 
         // add conditions that should always apply here
 
@@ -71,7 +71,6 @@ class JudgementSearch extends Judgement
             ->andFilterWhere(['like', 'red_number', $this->red_number])
             ->andFilterWhere(['like', 'doc_style_id', $this->doc_style_id])
             ->andFilterWhere(['like', 'file_name', $this->file_name])
-            ->andFilterWhere(['like', 'file_name1', $this->file_name1])
             ->andFilterWhere(['like', 'scan_by', $this->scan_by])
             ->andFilterWhere(['like', 'scan_datetime', $this->scan_datetime])
             ->andFilterWhere(['like', 'upload_by', $this->upload_by])

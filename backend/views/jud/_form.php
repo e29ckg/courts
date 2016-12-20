@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Judgement */
+/* @var $model backend\models\Jud */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="judgement-form">
+<div class="jud-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'black_number')->textInput(['maxlength' => true]) ?>
 
@@ -22,9 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'doc_style_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'file_name1')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'file_name')->fileInput() ?>
 
     <?= $form->field($model, 'file_size')->textInput() ?>
 
@@ -36,9 +34,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'upload_datetime')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'transfer_status')->textInput() ?>
-
-    <?= $form->field($model, 'file_page')->textInput() ?>
+    
 
     <?= $form->field($model, 'create_at')->textInput() ?>
 

@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\JudgementSearch */
+/* @var $model backend\models\JudSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="judgement-search">
+<div class="jud-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -26,8 +26,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'doc_style_id') ?>
 
     <?php // echo $form->field($model, 'file_name') ?>
-
-    <?php // echo $form->field($model, 'file_name1') ?>
 
     <?php // echo $form->field($model, 'file_size') ?>
 

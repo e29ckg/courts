@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Judgement */
+/* @var $model backend\models\Jud */
 
 $this->title = $model->black_number;
-$this->params['breadcrumbs'][] = ['label' => 'Judgements', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Juds', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="judgement-view">
+<div class="jud-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'red_number',
             'doc_style_id',
             'file_name',
-            'file_name1',
             'file_size',
             'scan_by',
             'scan_datetime',

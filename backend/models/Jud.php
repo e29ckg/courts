@@ -13,7 +13,6 @@ use Yii;
  * @property string $red_number
  * @property string $doc_style_id
  * @property string $file_name
- * @property string $file_name1
  * @property integer $file_size
  * @property string $scan_by
  * @property string $scan_datetime
@@ -23,11 +22,14 @@ use Yii;
  * @property integer $file_page
  * @property string $create_at
  */
-class Judgement extends \yii\db\ActiveRecord
+class Jud extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
+    
+    const UPLOAD_FOLDER = 'PDFServer';
+        
     public static function tableName()
     {
         return 'judgement';
@@ -43,10 +45,12 @@ class Judgement extends \yii\db\ActiveRecord
             [['file_size', 'transfer_status', 'file_page'], 'integer'],
             [['create_at'], 'safe'],
             [['black_number', 'doc_type_id'], 'string', 'max' => 100],
-            [['black_append', 'red_number', 'doc_style_id', 'file_name', 'file_name1'], 'string', 'max' => 255],
-            [['scan_by'], 'string', 'max' => 50],
+            [['black_append', 'scan_by'], 'string', 'max' => 50],
+            [['red_number'], 'string', 'max' => 20],
+            [['doc_style_id'], 'string', 'max' => 255],
             [['scan_datetime', 'upload_datetime'], 'string', 'max' => 14],
             [['upload_by'], 'string', 'max' => 13],
+            [['file_name'], 'file', 'maxFiles' => 1],
         ];
     }
 
@@ -62,7 +66,6 @@ class Judgement extends \yii\db\ActiveRecord
             'red_number' => 'Red Number',
             'doc_style_id' => 'Doc Style ID',
             'file_name' => 'File Name',
-            'file_name1' => 'File Name1',
             'file_size' => 'File Size',
             'scan_by' => 'Scan By',
             'scan_datetime' => 'Scan Datetime',
@@ -73,4 +76,13 @@ class Judgement extends \yii\db\ActiveRecord
             'create_at' => 'Create At',
         ];
     }
+    
+    public static function getUploadPath(){
+//    return Yii::getAlias('@webroot').'/'.self::UPLOAD_FOLDER.'/';
+    return Yii::getAlias('@webroot').'/'.self::UPLOAD_FOLDER.'/';
+}
+
+public static function getUploadUrl(){
+    return Url::base(true).'/'.self::UPLOAD_FOLDER.'/';
+}
 }

@@ -54,7 +54,7 @@
             </div>
             <div class="panel-body">   
                 <?php foreach ($vbooks as $vbook): ?>                     
-                    <a href="http://10.37.64.1/scan_system/PDFServer/<?= $vbook->black_number; ?>/<?= $vbook->file_name; ?>" target="_blank"> 
+                    <a href="http://127.0.0.1/courts/PDFServer/<?= $vbook->black_number; ?>/<?= $vbook->file_name; ?>" target="_blank"> 
                         <?php
                         if (!($vbook->red_number == '-')) {
                             echo $vbook->red_number;
