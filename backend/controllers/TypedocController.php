@@ -3,19 +3,15 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Jud;
-use backend\models\JudSearch;
+use backend\models\TypeDoc;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
-use yii\helpers\BaseFileHelper;
-use yii\helpers\ArrayHelper;
 
 /**
  * JudController implements the CRUD actions for Jud model.
  */
-class JudController extends Controller {
+class TypedocController extends Controller {
 
     public function behaviors() {
         return [
@@ -33,12 +29,9 @@ class JudController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $searchModel = new JudSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+$model = TypeDoc::find()->all();
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+                    'models' => $model,
         ]);
     }
 

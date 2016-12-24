@@ -3,51 +3,134 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+
 ?>
-<div class="site-index">
+<?php
+/* @var $this yii\web\View */
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+?>
+<h1>dashboard</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
 
-    <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+<div class="row">
+    <div class="col-xs-12 col-md-4 ">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+        <div class="panel panel-info ">
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;หนังสือเวียนทราบ</h3>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="panel-body">   
+                <?php foreach ($juds as $jud): ?>                     
+                    <a href="<?=$_SERVER["HTTP_HOST"]?>/scan_system/PDFServer/<?= $jud->black_number; ?>/<?= $jud->file_name; ?>" target="_blank"> 
+                        <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
+                        <?php
+                        if (!($jud->red_number == '-')) {
+                            echo $jud->red_number;
+                        } else {
+                            echo $jud->file_name;
+                        }
+                        ?>
+                    </a>  
+                    <br>
+                    <div class="text-right">
+                        <?php
+                        $phpdate = strtotime($jud->create_at);
+                        echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
+                        ?>
+                    </div>
+                    <hr>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <?php endforeach; ?>
+                <div class="btn pull-right">
+                    <a href="#" target="_blank">
+                        <i class="glyphicon glyphicon-list"></i>
+                        ดูทั้งหมด
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
         </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
 
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;หนังสือเวียนทราบ2</h3>
+            </div>
+            <div class="panel-body">   
+                <?php foreach ($vbooks as $vbook): ?>                     
+                    <a href="http://127.0.0.1/courts/PDFServer/<?= $vbook->black_number; ?>/<?= $vbook->file_name; ?>" target="_blank"> 
+                        <?php
+                        if (!($vbook->red_number == '-')) {
+                            echo $vbook->red_number;
+                        } else {
+                            echo $vbook->file_name;
+                        }
+                        ?>
+                    </a>   
+                    <hr>
+                <?php endforeach; ?>
+                <div class="btn pull-right">
+                    <a href="#" target="_blank">
+                        <i class="glyphicon glyphicon-list"></i>
+                        ดูทั้งหมด
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;คำสั่ง</h3>
+            </div>
+            <div class="panel-body">   
+                <?php foreach ($kss as $ks): ?>                     
+                    <a href="http://10.37.64.1/scan_system/PDFServer/<?= $ks->black_number; ?>/<?= $ks->file_name; ?>" target="_blank"> 
+                        <?php
+                        if (!($ks->red_number == '-')) {
+                            echo $ks->red_number;
+                        } else {
+                            echo $ks->file_name;
+                        }
+                        ?>
+                    </a>   
+                    <hr>
+                <?php endforeach; ?>
+                <div class="btn pull-right">
+                    <a href="#" target="_blank">
+                        <i class="glyphicon glyphicon-list"></i>
+                        ดูทั้งหมด
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;คำพิพากษา</h3>
+            </div>
+            <div class="panel-body">   
+                <?php foreach ($kps as $kp): ?>                     
+                    <a href="http://<?=$_SERVER["HTTP_HOST"]?>/scan_system/PDFServer/<?= $kp->black_number; ?>/<?= $kp->file_name; ?> " target="_blank"> <?= $kp->black_number; ?>.<?= $kp->file_name; ?>.' '.<?= $kp->create_at; ?> </a>   
+                    <hr>
+                <?php endforeach; ?>
+                <div class="btn pull-right">
+                    <a href="#" target="_blank">
+                        <i class="glyphicon glyphicon-list"></i>
+                        ดูทั้งหมด
+                    </a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

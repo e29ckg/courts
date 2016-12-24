@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use backend\models\Jud;
 
 /**
  * Site controller
@@ -60,6 +61,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $modeljud = Jud::find()->where(['doc_type_id' => 'หนังสือเวียน'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+        $modelvbook = Jud::find()->where(['doc_type_id' => 'เอกสาร'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+        $modelks = Jud::find()->where(['doc_type_id' => 'คำสั่ง'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+        $modelkps = Jud::find()->where(['doc_type_id' => 'คำพิพากษา'])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+        return $this->render('index', [
+                    'juds' => $modeljud,
+                    'vbooks' => $modelvbook,
+                    'kss' => $modelks,
+                    'kps' => $modelkps
+        ]);
         return $this->render('index');
     }
 

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Jud */
@@ -12,31 +13,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'black_number')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'doc_type_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'doc_type_id')->dropDownList(
+         ArrayHelper::map(\backend\models\TypeDoc::find()->all(),'type_doc_name','type_doc_name'),
+        ['prompt' => 'Select..']
+) ?>
 
-    <?= $form->field($model, 'black_append')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'doc_style_id')->textInput() ?>
 
-    <?= $form->field($model, 'red_number')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'doc_style_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'file_name')->fileInput() ?>
-
-    <?= $form->field($model, 'file_size')->textInput() ?>
-
-    <?= $form->field($model, 'scan_by')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'scan_datetime')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'upload_by')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'upload_datetime')->textInput(['maxlength' => true]) ?>
-
-    
-
-    <?= $form->field($model, 'create_at')->textInput() ?>
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
