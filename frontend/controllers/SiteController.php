@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Judgement;
 
 /**
  * Site controller
@@ -72,7 +73,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $modeljudA = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนA','doc_type_id' => 'หนังสือเวียน'])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+        $modeljudB = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนB'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelkps = Judgement::find()->where(['doc_type_id' => 'คำสั่งศยจ'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelkso = Judgement::find()->where(['doc_type_id' => 'คำสั่งสนง'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modeltbvs = Judgement::find()->where(['doc_type_id' => 'ตารางเวร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelbbs = Judgement::find()->where(['doc_type_id' => 'เอกสาร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        return $this->render('index', [
+                    'judAs' => $modeljudA,
+                    'judBs' => $modeljudB,
+                    'kpss' => $modelkps,
+                    'ksos' => $modelkso,
+                    'tvbs' => $modeltbvs,
+                    'bbss' => $modelbbs
+        ]);
     }
 
     /**

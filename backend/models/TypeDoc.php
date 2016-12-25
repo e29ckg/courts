@@ -27,6 +27,7 @@ class TypeDoc extends \yii\db\ActiveRecord
     {
         return [
             [['id_type', 'type_doc_name'], 'required'],
+            [['id_type', 'type_doc_name'], 'unique'],
             [['id_type'], 'integer'],
             [['type_doc_name'], 'string', 'max' => 30],
         ];
@@ -38,8 +39,8 @@ class TypeDoc extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_type' => 'Id Type',
-            'type_doc_name' => 'Type Doc Name',
+            'id_type' => 'รหัส ID',
+            'type_doc_name' => 'ชื่อประเภท',
         ];
     }
 }
