@@ -23,7 +23,7 @@ class JudgementController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET'],
                 ],
             ],
         ];
@@ -40,6 +40,13 @@ class JudgementController extends Controller {
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndex1() {
+        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+        
+        return $this->render('index1', [
+                    'juds' => $modeljud,
         ]);
     }
 
@@ -68,7 +75,8 @@ class JudgementController extends Controller {
             mkdir(Judgement::getUploadPath() . $model->black_number, 777);
             $model->file_name = $model->upload($model, 'file_name', $model->black_number);
             $model->save();
-            return $this->redirect(['view', 'black_number' => $model->black_number, 'doc_type_id' => $model->doc_type_id]);
+            
+            return $this->redirect(['index1', 'black_number' => $model->black_number, 'doc_type_id' => $model->doc_type_id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
@@ -120,7 +128,7 @@ class JudgementController extends Controller {
             Yii::$app->session->setFlash($doc_type_id);
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index1']);
     }
 
     /**

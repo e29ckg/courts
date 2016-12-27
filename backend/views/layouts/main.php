@@ -21,6 +21,8 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -37,6 +39,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'judgement', 'url' => ['/judgement/index']],
+        ['label' => 'judgement1', 'url' => ['/judgement/index1']],
          ['label' => 'ประเภทเอกสาร', 'url' => ['/typedoc/index']],
     ];
     if (Yii::$app->user->isGuest) {
