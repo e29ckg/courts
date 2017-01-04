@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Judgement;
 use backend\models\JudgementSearch;
+use backend\models\JudgementSearch_1;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,11 +43,28 @@ class JudgementController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionIndex1() {
-        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+
+    public function actionIndex1($q = 111) {
+//        $searchModel = new JudgementSearch_1();
+//        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+//        $modeljud = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new Judgement();
         
+        if (!empty($_GET['q'])) {
+            $q = $_GET['q'];
+            $modeljud = Judgement::find()->where(['LIKE', 'red_number', $q])->all();
+//
+            return $this->render('index1', [
+                        'model' => $model,
+                        'juds' => $modeljud,
+                        'e' => $q
+            ]);
+        }
+        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
         return $this->render('index1', [
+                    'model' => $model,
                     'juds' => $modeljud,
+                    'e' => $q
         ]);
     }
 
@@ -75,7 +93,7 @@ class JudgementController extends Controller {
             mkdir(Judgement::getUploadPath() . $model->black_number, 777);
             $model->file_name = $model->upload($model, 'file_name', $model->black_number);
             $model->save();
-            
+
             return $this->redirect(['index1', 'black_number' => $model->black_number, 'doc_type_id' => $model->doc_type_id]);
         } else {
             return $this->render('create', [
@@ -112,7 +130,6 @@ class JudgementController extends Controller {
                         'model' => $model,
             ]);
         }
-
     }
 
     /**

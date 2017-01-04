@@ -28,6 +28,8 @@ class Judgement extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
+     public $q;
+     
     const UPLOAD_FOLDER = '/scan_system/PDFServer/';
 
     public static function tableName() {
@@ -41,7 +43,7 @@ class Judgement extends \yii\db\ActiveRecord {
         return [
             [['doc_type_id',], 'required'],
             [['file_size', 'transfer_status', 'file_page'], 'integer'],
-            [['create_at'], 'safe'],
+            [['create_at', 'q'], 'safe'],
             [['black_number', 'doc_type_id'], 'string', 'max' => 100],
             [['black_append', 'red_number', 'doc_style_id',], 'string', 'max' => 255],
             [['scan_by'], 'string', 'max' => 50],

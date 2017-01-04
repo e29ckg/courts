@@ -11,7 +11,13 @@ use yii\helpers\ArrayHelper;
 
 <div class="judgement-form">
 
-    <?php $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                'options' => [
+                    'enctype' => 'multipart/form-data',
+                    'id' => 'create-product-form']
+    ]);
+    ?>
 
     <?= $form->field($model, 'black_number')->hiddenInput()->label(false) ?> 
 
@@ -43,12 +49,12 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'file_page')->hiddenInput(['value' => '1'])->label(false) ?>
 
-    <?= $form->field($model, 'create_at')->hiddenInput()->label(false)?>
+        <?= $form->field($model, 'create_at')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
