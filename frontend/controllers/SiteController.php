@@ -73,7 +73,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $modeljudA = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนA','doc_type_id' => 'หนังสือเวียน'])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+        $modeljudA = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนA','หนังสือเวียน']])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+//        $modeljudA = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียน'])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
         $modeljudB = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนB'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modelkps = Judgement::find()->where(['doc_type_id' => 'คำสั่งศยจ'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modelkso = Judgement::find()->where(['doc_type_id' => 'คำสั่งสนง'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
