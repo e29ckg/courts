@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
+use yii\widgets\LinkPager;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,37 +17,28 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-xs-12 col-md-12 ">
         <div class="panel panel-info ">
+
             <div class="panel-body">
-                
-                <p class="pull-right" >
-                    <?php
-                    $form = ActiveForm::begin([
-                                'action' => ['index1'],
-                                'method' => 'get',
-                                'options' => [
-                                    'data-pjax' => true,
-                                ]
-                    ]);
-                    ?> 
-                    <div class="input-group">
-                        <input type="text" name="q">
-                        <?php //echo Html::activeTextInput($model, 'q', ['class' => 'form-control', 'placeholder' => 'ค้นหาข้อมูล...']) ?>
-                    
+                <p class="pull-left" ><a class="btn btn-danger" href="?r=judgement/create"><i class=" glyphicon glyphicon-plus"></i> เพิ่ม</a></p>
+                <?php
+                $form = ActiveForm::begin([
+                            'action' => ['index1'],
+                            'method' => 'get',
+                            'options' => [
+                                'data-pjax' => true,
+                                'class' => 'form-inline pull-right',
+                            ]
+                ]);
+                ?> 
 
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i> ค้นหา</button>
-                        <a class="showModalButton btn btn-danger" href="?r=judgement/create"><i class=" glyphicon glyphicon-plus"></i> เพิ่ม</a>
-                    </span>
-                    </div>
-                    <?php ActiveForm::end(); ?>
-
+                <div class="form-group">                       
+                    <input type="text" class="form-control" name="q" placeholder="ค้นหา">
                 </div>
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> ค้นหา</button>
+                <?php ActiveForm::end(); ?>
 
-
-
-
-                <TABLE class="table table-bordered table-responsive table-striped" style="margin-top: 45px">   
-                    <thead >
+                <TABLE class="table table-bordered table-responsive table-striped" >   
+                    <thead>
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">ประเภทเอกสาร</th>
@@ -77,12 +70,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endforeach; ?>
                     </tbody>
                 </TABLE>
-
+                <?php
+                // display pagination
+                echo LinkPager::widget([
+                    'pagination' => $pagination,
+                ]);
+                ?>
             </div>
         </div>
-
     </div>
 </div>
+
 
 
 

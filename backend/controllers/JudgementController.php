@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\data\Pagination;
 
 /**
  * JudgementController implements the CRUD actions for Judgement model.
@@ -45,26 +46,29 @@ class JudgementController extends Controller {
     }
 
     public function actionIndex1($q = 111) {
-//        $searchModel = new JudgementSearch_1();
-//        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
-//        $modeljud = $searchModel->search(Yii::$app->request->queryParams);
-        $model = new Judgement();
         
+        $model = new Judgement();
+
         if (!empty($_GET['q'])) {
-            $q = $_GET['q'];
-            $modeljud = Judgement::find()->where(['LIKE', 'red_number', $q])->all();
-//
-            return $this->render('index1', [
-                        'model' => $model,
-                        'juds' => $modeljud,
-                        'e' => $q
-            ]);
+
+            $query = Judgement::find()->where(['LIKE', 'red_number', $_GET['q']]);
+//            
+        } else {
+            $query = Judgement::find();
         }
-        $modeljud = Judgement::find()->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        $models = $query->orderBy(['create_at' => SORT_DESC])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+        
         return $this->render('index1', [
-                    'model' => $model,
-                    'juds' => $modeljud,
-                    'e' => $q
+                    'juds' => $models,
+                    'pagination' => $pagination,
         ]);
     }
 
