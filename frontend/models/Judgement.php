@@ -27,7 +27,7 @@ class Judgement extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public $urljud ='\\10.37.64.1\PDFServer';
+    public $urlfiles ='/scan_system/PDFServer/';
     
     public static function tableName()
     {

@@ -11,7 +11,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($kps as $kp): ?>
-                    <a href="http://<?= $_SERVER['HTTP_HOST'].'/scan_system/PDFServer/'.$kp->black_number; ?>/<?= $kp->file_name; ?>" target="_blank">
+                    <a href="http://<?= $_SERVER['HTTP_HOST'] . '/scan_system/PDFServer/' . $kp->black_number; ?>/<?= $kp->file_name; ?>" target="_blank">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($kp->red_number == '-')) {
@@ -31,7 +31,7 @@
                     <hr>
                 <?php endforeach; ?>
                 <div class="btn pull-right">
-                    <a href="#" target="_blank">
+                    <a href="r=judgement/judA" target="_blank">
                         <i class="glyphicon glyphicon-list"></i>
                         ดูทั้งหมด
                     </a>
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
