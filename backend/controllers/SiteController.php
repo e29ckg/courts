@@ -61,17 +61,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $modeljud = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียน'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
-        $modelvbook = Judgement::find()->where(['doc_type_id' => 'เอกสาร'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
-        $modelks = Judgement::find()->where(['doc_type_id' => 'คำสั่ง'])->orderBy(['upload_datetime' => SORT_DESC])->limit(10)->all();
-        $modelkps = Judgement::find()->where(['doc_type_id' => 'คำพิพากษา'])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+        $modeljudA = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนA','หนังสือเวียน']])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+        $modeljudB = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนB'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelkps = Judgement::find()->where(['doc_type_id' => 'คำสั่งศยจ'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelkso = Judgement::find()->where(['doc_type_id' => 'คำสั่งสนง'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modeltbvs = Judgement::find()->where(['doc_type_id' => 'ตารางเวร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
+        $modelbbs = Judgement::find()->where(['doc_type_id' => 'เอกสาร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         return $this->render('index', [
-                    'juds' => $modeljud,
-                    'vbooks' => $modelvbook,
-                    'kss' => $modelks,
-                    'kps' => $modelkps
-        ]);
-        return $this->render('index');
+                    'judAs' => $modeljudA,
+                    'judBs' => $modeljudB,
+                    'kpss' => $modelkps,
+                    'ksos' => $modelkso,
+                    'tvbs' => $modeltbvs,
+                    'bbss' => $modelbbs
+                ]);
     }
 
     /**

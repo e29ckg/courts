@@ -8,21 +8,46 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-
 <div class="judgement-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'post',
-        'options' => ['data-pjax' => true ]
+        'method' => 'get',
     ]); ?>
-    <div class="input-group">
-      <?= Html::activeTextInput($model, 'red_number',['class'=>'form-control','placeholder'=>'ค้นหาข้อมูล...']) ?>
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i> ค้นหา</button>
-        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-default']) ?>
-      </span>
+
+    <?= $form->field($model, 'black_number') ?>
+
+    <?= $form->field($model, 'doc_type_id') ?>
+
+    <?= $form->field($model, 'black_append') ?>
+
+    <?= $form->field($model, 'red_number') ?>
+
+    <?= $form->field($model, 'doc_style_id') ?>
+
+    <?php // echo $form->field($model, 'file_name') ?>
+
+    <?php // echo $form->field($model, 'file_size') ?>
+
+    <?php // echo $form->field($model, 'scan_by') ?>
+
+    <?php // echo $form->field($model, 'scan_datetime') ?>
+
+    <?php // echo $form->field($model, 'upload_by') ?>
+
+    <?php // echo $form->field($model, 'upload_datetime') ?>
+
+    <?php // echo $form->field($model, 'transfer_status') ?>
+
+    <?php // echo $form->field($model, 'file_page') ?>
+
+    <?php // echo $form->field($model, 'create_at') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>

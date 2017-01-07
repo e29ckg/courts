@@ -28,9 +28,8 @@ class Judgement extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-     public $q;
-     
     const UPLOAD_FOLDER = '/scan_system/PDFServer/';
+     public $urlfiles ='/scan_system/PDFServer/';
 
     public static function tableName() {
         return 'judgement';
@@ -41,9 +40,10 @@ class Judgement extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['doc_type_id',], 'required'],
+            [['doc_type_id'], 'required'],
+            [['red_number'],'yii\validators\UniqueValidator'],
             [['file_size', 'transfer_status', 'file_page'], 'integer'],
-            [['create_at', 'q'], 'safe'],
+            [['create_at'], 'safe'],
             [['black_number', 'doc_type_id'], 'string', 'max' => 100],
             [['black_append', 'red_number', 'doc_style_id',], 'string', 'max' => 255],
             [['scan_by'], 'string', 'max' => 50],
@@ -82,7 +82,7 @@ class Judgement extends \yii\db\ActiveRecord {
         $path = $this->getUploadPath();
 
         $path .= iconv('UTF-8', 'TIS-620', $folder);
-        $path .= '/';        
+        $path .= '/';
 
         if ($this->validate() && $photo !== null) {
 

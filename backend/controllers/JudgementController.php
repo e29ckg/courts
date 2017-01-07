@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Judgement;
 use backend\models\JudgementSearch;
-use backend\models\JudgementSearch_1;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,19 +44,19 @@ class JudgementController extends Controller {
         ]);
     }
 
-    public function actionIndex1($q = 111) {
-        
-        $model = new Judgement();
+    public function actionIndex1($q = null) {
+
+        $query = Judgement::find();
 
         if (!empty($_GET['q'])) {
 
-            $query = Judgement::find()->where(['LIKE', 'red_number', $_GET['q']]);
-//            
+            $query = $query->where(['LIKE', 'red_number', $_GET['q']]);
         } else {
             $query = Judgement::find();
         }
+
         $pagination = new Pagination([
-            'defaultPageSize' => 10,
+            'defaultPageSize' => 20,
             'totalCount' => $query->count(),
         ]);
 
@@ -65,7 +64,7 @@ class JudgementController extends Controller {
                 ->offset($pagination->offset)
                 ->limit($pagination->limit)
                 ->all();
-        
+
         return $this->render('index1', [
                     'juds' => $models,
                     'pagination' => $pagination,
@@ -128,12 +127,39 @@ class JudgementController extends Controller {
 
             $model->file_name = $model->upload($model, 'file_name', $model->black_number);
             $model->save();
-            return $this->redirect(['view', 'black_number' => $model->black_number, 'doc_type_id' => $model->doc_type_id]);
+
+            // แจ้งทาง Line
+            $message = 'มีการแก้ไข ' . $model->doc_type_id . ' เรื่อง ' . $model->red_number;
+            $message .=' เรียบร้อยแล้ว สามารถดูได้ที่ < เว็บภายใน >';
+            $message .= 'http://';
+            $message .= $_SERVER['HTTP_HOST'];
+            $message .= '/- หัวข้อ ';
+            $message .= $model->doc_type_id;
+            $res = $this->notify_message($message);
+            // แจ้งทาง Line
+
+            return $this->redirect(['index1', 'black_number' => $model->black_number, 'doc_type_id' => $model->doc_type_id]);
         } else {
             return $this->render('update', [
                         'model' => $model,
             ]);
         }
+    }
+
+    public function actionLine_alert() {
+        $black_number = $_GET['black_number'];
+        $doc_type_id = $_GET['doc_type_id'];
+        $model = $this->findModel($black_number, $doc_type_id);
+        
+        $message = 'แจ้งทราบ -> ' . $model->doc_type_id . ' เรื่อง ' . $model->red_number;
+            $message .=' ดูรายละเอียดได้ที่ < pkkjcเว็บภายใน >';
+            $message .= 'http://';
+            $message .= $_SERVER['HTTP_HOST'].' หัวข้อ'. $model->doc_type_id;
+//            $message .= '/scan_system/frontend/web/index.php?r=judgement/view&black_number=';
+//            $message .= $model->black_number.'&doc_type_id='.$model->black_number;
+            $res = $this->notify_message($message);
+            
+        return $this->redirect(['index1']);
     }
 
     /**
@@ -150,6 +176,55 @@ class JudgementController extends Controller {
         }
 
         return $this->redirect(['index1']);
+    }
+
+    public function actionSearch($q) {
+        $query = Judgement::find()->where(['LIKE', 'red_number', $q]);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 20,
+            'totalCount' => $query->count(),
+        ]);
+
+        $models = $query->orderBy(['create_at' => SORT_DESC])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
+
+        return $this->render('index1', [
+                    'juds' => $models,
+                    'pagination' => $pagination,
+        ]);
+    }
+
+    //ส่งข้อความผ่าน line Notify
+    public function notify_message($message) {
+        $line_api = 'https://notify-api.line.me/api/notify';
+        $line_token = '6zhU4Wx7zWLw3HpUKFVBhDKnm9BKCcX2q48Y1NXkYTJ';
+        $queryData = array('message' => $message);
+        $queryData = http_build_query($queryData, '', '&');
+        $headerOptions = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-Type: application/x-www-form-urlencoded\r\n"
+                . "Authorization: Bearer " . $line_token . "\r\n" . "Content-Length: "
+                . strlen($queryData) . "\r\n",
+                'content' => $queryData
+            )
+        );
+        $context = stream_context_create($headerOptions);
+        $result = file_get_contents($line_api, FALSE, $context);
+        $res = json_decode($result);
+        return $res;
+    }
+
+    public function actionView_download() {
+        $jud = new Judgement();
+        $link = 'http://';
+        $link .= $_SERVER['HTTP_HOST'];
+        $link .= $jud->urlfiles;
+        $link .= $_GET['black_number'] . '/' . $_GET['file_name'];
+        return $this->redirect($link);
     }
 
     /**
