@@ -5,26 +5,8 @@ use yii\widgets\LinkPager;
 
 $this->title = $title['head'];
 ?>
-<div class="col-xs-12">
-<p class="pull-left" ><h3><?= $title['head']; ?></h3></p>
 
-<?php
-$form = ActiveForm::begin([
-            'action' => [$title['page']],
-            'method' => 'get',
-            'options' => [
-                'data-pjax' => true,
-                'class' => 'form-inline pull-right',
-            ]
-        ]);
-?> 
-
-<div class="form-group">                       
-    <input type="text" class="form-control" name="q" placeholder="ค้นหา">
-</div>
-<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> ค้นหา</button>
-<?php ActiveForm::end(); ?>
-</div>
+<h3><?= $title['head']; ?></h3>
 
 <div class="row">
     <div class="col-xs-12 col-md-12 ">
@@ -35,7 +17,6 @@ $form = ActiveForm::begin([
 
             </div>
             <div class="panel-body">
-
 
                 <?php foreach ($models as $model): ?>
                     <a href="?r=judgement/view_download&black_number=<?= $model->black_number; ?>&file_name=<?= $model->file_name; ?>" target="_blank">                       

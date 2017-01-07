@@ -20,11 +20,13 @@ AppAsset::register($this);
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+
     </head>
     <body>
         <?php $this->beginBody() ?>
 
         <div class="wrap">
+
             <?php
             NavBar::begin([
                 'brandLabel' => 'PKKJC เว็บภายใน',
@@ -34,8 +36,8 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'judgement', 'url' => ['/judgement/index']],
+                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'judgement', 'url' => ['/judgement/index']],
                     //  ['label' => 'Contact', 'url' => ['/site/contact']],
             ];
             if (Yii::$app->user->isGuest) {
@@ -57,50 +59,34 @@ AppAsset::register($this);
             NavBar::end();
             ?>
 
-
             <div class="container">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                <div id="myCarousel" class="carousel slide row" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <!--                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                                            <li data-target="#myCarousel" data-slide-to="3"></li>-->
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
                     </ol>
 
                     <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
+                    <div class="carousel-inner " role="listbox">
                         <div class="item active">
-                            <img src="img/bannerdesign2.jpg" alt="Chania">
-                            <div class="carousel-caption">
-                                <h3>Chania</h3>
-                                <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-                            </div>
+                            <img src="img/head_cms.png" alt="Chania" width="783" height="142">
                         </div>
 
-                        <!--                    <div class="item">
-                                                <img src="img_chania2.jpg" alt="Chania">
-                                                <div class="carousel-caption">
-                                                    <h3>Chania</h3>
-                                                    <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="item">
-                                                <img src="img_flower.jpg" alt="Flower">
-                                                <div class="carousel-caption">
-                                                    <h3>Flowers</h3>
-                                                    <p>Beatiful flowers in Kolymbari, Crete.</p>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="item">
-                                                <img src="img_flower2.jpg" alt="Flower">
-                                                <div class="carousel-caption">
-                                                    <h3>Flowers</h3>
-                                                    <p>Beatiful flowers in Kolymbari, Crete.</p>
-                                                </div>
-                                            </div>-->
+                        <div class="item">
+                            <img src="img/New2.jpg" alt="Chania" width="783" height="142">
+                        </div>
+
+                        <div class="item">
+                            <img src="img/head_cms.png" alt="Flower" width="783" height="142">
+                        </div>
+
+                        <div class="item">
+                            <img src="img/New2.jpg" alt="Flower" width="783" height="142">
+                        </div>
                     </div>
 
                     <!-- Left and right controls -->
@@ -114,23 +100,18 @@ AppAsset::register($this);
                     </a>
                 </div>
 
-                <?=
-                Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ])
-                ?>
-                <?= Alert::widget() ?>
-                <div>
-                    <?= $content ?>
-                </div>
+                <div class="well well-sm row"><marquee scrolldelay="100" direction="Left"><b>ศาลเยาวชนเละครอบครัวจังหวัดประจวบคีรีขันธ์  PKKJC INTRANET</b></marquee></div>
+
+                <?= $content ?>
+                
             </div>
         </div>
 
-        <footer class="footer">
+        <footer class="">
             <div class="container">
                 <p class="pull-left">&copy; pkkjc <?= date('Y') ?></p>
 
-                <p class="pull-right">court</p>
+                <!--<p class="pull-right">court</p>-->
             </div>
         </footer>
 
