@@ -14,12 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?= Html::encode($this->title) ?></h1>-->
 
 </div>
 <div class="col-xs-12 col-md-9 ">
     <div class="panel panel-info ">
-
+        <div class="panel-heading "><?= Html::encode($this->title) ?></div>
         <div class="panel-body">
             <div class="content">
                 <p class="pull-left"><a class="btn btn-danger" href="?r=profile/create"><i class="glyphicon glyphicon-plus"></i> เพิ่ม <?= $this->title; ?></a></p>
