@@ -40,7 +40,7 @@ class Judgement extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['doc_type_id'], 'required'],
+            [['doc_type_id','red_number'], 'required'],
             [['red_number'],'yii\validators\UniqueValidator'],
             [['file_size', 'transfer_status', 'file_page'], 'integer'],
             [['create_at'], 'safe'],

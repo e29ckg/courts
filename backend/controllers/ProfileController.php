@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\User;
 use yii\base\Model;
+use yii\data\Pagination;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -35,13 +36,15 @@ class ProfileController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $modelProfile = \backend\models\profile::find()->all();
+        $query = Profile::find();
+        
+       
 //        $modelUser = User::find()->all();
         if (!empty($_GET['q'])) {
 
-            $query = $query->where(['LIKE', 'red_number', $_GET['q']]);
+            $query = $query->where(['LIKE', 'fullname', $_GET['q']]);
         } else {
-            $query = \backend\models\profile::find();
+            $query = Profile::find();
         }
 
         $pagination = new Pagination([
@@ -55,8 +58,9 @@ class ProfileController extends Controller {
                 ->all();
 
         return $this->render('index', [
-                    'models' => $modelProfile,
+                    'models' => $models,
 //                    'modelUser' => $modelUser,
+                    'pagination' => $pagination,
         ]);
     }
 
