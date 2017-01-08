@@ -45,7 +45,7 @@ class Judgement extends \yii\db\ActiveRecord
             [['black_number', 'doc_type_id'], 'string', 'max' => 100],
             [['black_append', 'scan_by'], 'string', 'max' => 50],
             [['red_number'], 'string', 'max' => 20],
-            [['doc_style_id', 'file_name', 'file_name1'], 'string', 'max' => 255],
+            [['doc_style_id', 'file_name'], 'string', 'max' => 255],
             [['scan_datetime', 'upload_datetime'], 'string', 'max' => 14],
             [['upload_by'], 'string', 'max' => 13],
         ];
@@ -63,7 +63,6 @@ class Judgement extends \yii\db\ActiveRecord
             'red_number' => 'Red Number',
             'doc_style_id' => 'Doc Style ID',
             'file_name' => 'File Name',
-            'file_name1' => 'File Name1',
             'file_size' => 'File Size',
             'scan_by' => 'Scan By',
             'scan_datetime' => 'Scan Datetime',
