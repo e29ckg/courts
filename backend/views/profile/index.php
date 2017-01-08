@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="panel-body">
             <div class="content">
-                <p class="pull-left"><a class="btn btn-danger" href="?r=judgement/create"><i class="glyphicon glyphicon-plus"></i> เพิ่ม</a></p>
+                <p class="pull-left"><a class="btn btn-danger" href="?r=profile/create"><i class="glyphicon glyphicon-plus"></i> เพิ่ม</a></p>
                 <p class="pull-right">
 
                     <?php
@@ -47,20 +47,26 @@ $this->params['breadcrumbs'][] = $this->title;
             <TABLE class="table table-bordered table-hover table-striped">
                 <thead >
                 <th class="text-center" style="width: 100px">profile_id</th>
-                <th class="text-center" style="width: 150px">user_id</th>
-                <th class="text-center">username</th>
-                <th class="text-center" style="width: 150px">fullname</th>
+                <th class="text-center" style="width: 100px">user_id</th>
+                <th class="text-center">ชื่อ-สกุล</th>
+                <th class="text-center"> Login Username</th>
+                <th class="text-center" style="width: 180px">เครื่องมือ</th>
                 </thead>
                 <tbody>
                     <?php foreach ($models as $profile): ?>
                         <tr>
                             <td class="text-center" ><?= $profile->id ?></td>
                             <td class="text-center" ><?= $profile->user_id ?></td>
-                            <td><?= $profile->fullname ?>  </td>
-                            <td>
-                                <a class="btn btn-primary btn-xs" href="?r=judgement/line_alert&" >Line</a>
-                                <a class="btn btn-info btn-xs" href="?r=profile/update&id=<?= $profile->id ?>" >แก้ไข</a>
-                                <a class="btn btn-danger btn-xs" href="?r=profile/delete&black_number=" onclick="return confirm('คุณแน่ใจที่จะลบข้อมูล')">ลบ</a>
+                            <td  ><a href="?r=profile/view&id=<?= $profile->id ?>"><?= $profile->fullname ?></a><?php if( $profile->user['status'] == 13){echo ' <span class="label label-danger">ระงับ</span>';} ?>  </td>
+                            <td class="text-center" ><a href="?r=profile/view&id=<?= $profile->id ?>"><?= $profile->user['username']; ?></a></td>
+                            <td>                                
+                                <a class="btn btn-primary btn-xs" href="?r=profile/update&id=<?= $profile->id ?>" >แก้ไข</a>
+                                <?php if ($profile->user['status'] == 13) { ?>
+                                    <a class="btn btn-warning btn-xs" href="?r=profile/enableuser&id=<?= $profile->id ?>" >เปิดการใช้</a>
+                                    <a class="btn btn-danger btn-xs" href="?r=profile/delete&id=<?= $profile->id ?>" onclick="return confirm('คุณแน่ใจที่จะลบข้อมูล')">ลบ</a>
+                                <?php } else { ?>
+                                    <a class="btn btn-info btn-xs" href="?r=profile/suspend&id=<?= $profile->id ?>" >ระงับการใช้</a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -71,4 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
+    <?php 
+                    print_r($models)
+    ?>
 </div>

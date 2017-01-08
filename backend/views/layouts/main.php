@@ -100,7 +100,7 @@ AppAsset::register($this);
                 <div class="list-group visible-lg col-lg-3">
                     <li href="#" class="list-group-item active text-center">   MENU     </li>
                     <a href="?r=judgement/index1" class="list-group-item">โปรแกรมหนังสือเวียน</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="?r=profile/index" class="list-group-item">จัดการสมาชิก</a>
                     <a href="#" class="list-group-item">Porta ac consectetur ac</a>
                     <a href="#" class="list-group-item">Vestibulum at eros</a>
                 </div>

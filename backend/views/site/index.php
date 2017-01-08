@@ -5,7 +5,7 @@
 
 <div class="row">
 
-    <div class="col-xs-12 col-md-6 ">
+    <div class="col-xs-12 col-md-3 ">
         <div class="panel panel-info ">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;หนังสือเวียนทราบ</h3>
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-3">
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="glyphicon glyphicon-book "></i> &nbsp;หนังสือเวียนทราบ (ภายใน)</h3>

@@ -24,7 +24,7 @@ class ProfileController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+//                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -35,11 +35,28 @@ class ProfileController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
-        $modelProfile = new \backend\models\profile();
-        $modelProfile = \backend\models\profile::find()->joinWith('user')->all();
+        $modelProfile = \backend\models\profile::find()->all();
+//        $modelUser = User::find()->all();
+        if (!empty($_GET['q'])) {
+
+            $query = $query->where(['LIKE', 'red_number', $_GET['q']]);
+        } else {
+            $query = \backend\models\profile::find();
+        }
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 20,
+            'totalCount' => $query->count(),
+        ]);
+
+        $models = $query->orderBy(['create_at' => SORT_DESC])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->all();
 
         return $this->render('index', [
                     'models' => $modelProfile,
+//                    'modelUser' => $modelUser,
         ]);
     }
 
@@ -49,6 +66,7 @@ class ProfileController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -67,22 +85,15 @@ class ProfileController extends Controller {
                 $modelUser->load(Yii::$app->request->post()) &&
                 Model::validateMultiple([$modelProfile, $modelUser])) {
 
-            $modelUser->password_hash = Yii::$app->security->generatePasswordHash('pass');
-//                $modelUser->id = 2;
+            $modelUser->password_hash = Yii::$app->security->generatePasswordHash($modelUser->password_hash);
+            $modelUser->auth_key = Yii::$app->security->generateRandomString();
+//            $modelUser->email = 'user@pkkjc.com';
+//            $modelUser->updated_at = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
             $modelUser->save();
 
             $modelProfile->user_id = $modelUser->id;
             $modelProfile->save();
 
-
-
-
-//                $modelUser->load(Yii::$app->request->post()) &&
-//                Model::validateMultiple([$modelProfile, $modelUser])) {
-//            if ($modelUser->save()) {
-//                $modelProfile->user_id = $modelUser->id;
-//                $modelProfile->save();
-//            }
             return $this->redirect(['index', 'id' => $modelProfile->id]);
         } else {
             return $this->render('create', [
@@ -102,12 +113,14 @@ class ProfileController extends Controller {
 
         $model = $this->findModel($id);
         $modelUser = $this->findModelUser($model->user_id);
+        $oldPass = $modelUser->password_hash;
 
-        if (
-                $model->load(Yii::$app->request->post()) &&
+        if ($model->load(Yii::$app->request->post()) &&
                 $modelUser->load(Yii::$app->request->post()) &&
-                Model::validateMultiple([$model, $modelUser])
-        ) {
+                Model::validateMultiple([$model, $modelUser])) {
+            if (!($modelUser->password_hash == $oldPass)) {
+                $modelUser->password_hash = Yii::$app->security->generatePasswordHash($modelUser->password_hash);
+            }
             if ($modelUser->save()) {
                 $model->save();
             }
@@ -126,7 +139,26 @@ class ProfileController extends Controller {
      * @param integer $id
      * @return mixed
      */
+    public function actionSuspend($id) {
+        $modelProfile = $this->findModel($id);
+        $modelUser = $this->findModelUser($modelProfile->user_id);
+        $modelUser->status = 13;
+        $modelUser->save();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionEnableuser($id) {
+        $modelProfile = $this->findModel($id);
+        $modelUser = $this->findModelUser($modelProfile->user_id);
+        $modelUser->status = 10;
+        $modelUser->save();
+        return $this->redirect(['index']);
+    }
+
     public function actionDelete($id) {
+        $modelUser = $this->findModel($id);
+        $this->findModelUser($modelUser->user_id)->delete();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -146,9 +178,8 @@ class ProfileController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    protected function findModelUser($id)
-    {
+
+    protected function findModelUser($id) {
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
