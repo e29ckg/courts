@@ -19,14 +19,14 @@ use yii\widgets\ActiveForm;
                     <th class="text-center" >รายละเอียด</th>                
                     </thead>
                     <tbody>                    
-                        <tr>
+<!--                        <tr>
                             <td class="text-right" > id </td>
                             <td class="text-left" ><?= $model->id ?></td>                            
                         </tr>
                         <tr>
                             <td class="text-right" >user_id</td>
                             <td class="text-left" ><?= $model->user_id ?></td>                            
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td class="text-right" >Username</td>
                             <td class="text-left" ><?= $form->field($modelUser, 'username')->textInput()->label(FALSE) ?></td>                            

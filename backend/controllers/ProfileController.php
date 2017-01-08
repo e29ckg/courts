@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use backend\models\User;
 use yii\base\Model;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -22,6 +23,22 @@ class ProfileController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'suspend', 'enableuser' ], //action ทั้งหมดที่มี
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'suspend', 'enableuser'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?', '@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

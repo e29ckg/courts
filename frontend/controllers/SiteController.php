@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -17,13 +18,12 @@ use frontend\models\Judgement;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -53,8 +53,7 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -71,15 +70,21 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $modeljudA = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนA','หนังสือเวียน']])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
+    public function actionIndex() {
+        if (!(Yii::$app->user->isGuest)){
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
+        
+        $modeljudA = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนA', 'หนังสือเวียน']])->orderBy(['create_at' => SORT_DESC])->limit(10)->all();
         $modeljudB = Judgement::find()->where(['doc_type_id' => 'หนังสือเวียนB'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modelkps = Judgement::find()->where(['doc_type_id' => 'คำสั่งศยจ'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modelkso = Judgement::find()->where(['doc_type_id' => 'คำสั่งสนง'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modeltbvs = Judgement::find()->where(['doc_type_id' => 'ตารางเวร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         $modelbbs = Judgement::find()->where(['doc_type_id' => 'เอกสาร'])->orderBy(['create_at' => SORT_DESC])->limit(9)->all();
         return $this->render('index', [
+                    'pageset' => $pageset,
                     'judAs' => $modeljudA,
                     'judBs' => $modeljudB,
                     'kpss' => $modelkps,
@@ -94,18 +99,18 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+//            return $this->goBack();
+            return $this->goHome();
         } else {
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -115,8 +120,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -127,8 +131,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
@@ -140,7 +143,7 @@ class SiteController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -150,8 +153,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
 
@@ -160,8 +162,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionSignup()
-    {
+    public function actionSignup() {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -172,7 +173,7 @@ class SiteController extends Controller
         }
 
         return $this->render('signup', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -181,8 +182,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset()
-    {
+    public function actionRequestPasswordReset() {
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -195,7 +195,7 @@ class SiteController extends Controller
         }
 
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -206,8 +206,7 @@ class SiteController extends Controller
      * @return mixed
      * @throws BadRequestHttpException
      */
-    public function actionResetPassword($token)
-    {
+    public function actionResetPassword($token) {
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -221,7 +220,8 @@ class SiteController extends Controller
         }
 
         return $this->render('resetPassword', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
+
 }

@@ -8,6 +8,7 @@ use backend\models\TypeDocSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TypeDocController implements the CRUD actions for TypeDoc model.
@@ -20,10 +21,26 @@ class TypedocController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete' ], //action ทั้งหมดที่มี
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?', '@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+//                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -35,12 +52,10 @@ class TypedocController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TypeDocSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = TypeDoc::find()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $query,
         ]);
     }
 
@@ -85,7 +100,7 @@ class TypedocController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_type]);
+            return $this->redirect(['index', 'id' => $model->id_type]);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 /**
  * JudgementController implements the CRUD actions for Judgement model.
@@ -21,6 +22,22 @@ class JudgementController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'index1', 'view', 'create', 'update', 'line_alert', 'delete', 'search', 'view_download'], //action ทั้งหมดที่มี
+                'rules' => [
+                    [
+                        'actions' => ['view', 'create', 'update', 'line_alert', 'delete', 'search', 'view_download'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['?', '@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -130,10 +147,10 @@ class JudgementController extends Controller {
 
             // แจ้งทาง Line
             $message = 'มีการแก้ไข ' . $model->doc_type_id . ' เรื่อง ' . $model->red_number;
-            $message .=' เรียบร้อยแล้ว สามารถดูได้ที่ < เว็บภายใน >';
+            $message .= ' เรียบร้อยแล้ว สามารถดูได้ที่ เว็บภายใน';
             $message .= 'http://';
             $message .= $_SERVER['HTTP_HOST'];
-            $message .= '/- หัวข้อ ';
+            $message .= ' หัวข้อ ';
             $message .= $model->doc_type_id;
             $res = $this->notify_message($message);
             // แจ้งทาง Line
@@ -150,15 +167,15 @@ class JudgementController extends Controller {
         $black_number = $_GET['black_number'];
         $doc_type_id = $_GET['doc_type_id'];
         $model = $this->findModel($black_number, $doc_type_id);
-        
-        $message = 'แจ้งทราบ -> ' . $model->doc_type_id . ' เรื่อง ' . $model->red_number;
-            $message .=' ดูรายละเอียดได้ที่ < pkkjcเว็บภายใน >';
-            $message .= 'http://';
-            $message .= $_SERVER['HTTP_HOST'].' หัวข้อ'. $model->doc_type_id;
+
+        $message = 'แจ้งทราบ! เรื่อง ' . $model->red_number;
+        $message .= ' ดูรายละเอียดได้ที่ pkkjcเว็บภายใน ';
+        $message .= 'http://';
+        $message .= $_SERVER['HTTP_HOST'] . ' หัวข้อ' . $model->doc_type_id;
 //            $message .= '/scan_system/frontend/web/index.php?r=judgement/view&black_number=';
 //            $message .= $model->black_number.'&doc_type_id='.$model->black_number;
-            $res = $this->notify_message($message);
-            
+        $res = $this->notify_message($message);
+
         return $this->redirect(['index1']);
     }
 
