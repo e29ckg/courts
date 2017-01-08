@@ -11,7 +11,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($kps as $kp): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $kp->black_number; ?>&file_name=<?= $kp->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $kp->black_number; ?>&file_name=<?= $kp->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($kp->red_number == '-')) {
@@ -47,7 +47,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($kss as $ks): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $ks->black_number; ?>&file_name=<?= $ks->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $ks->black_number; ?>&file_name=<?= $ks->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($ks->red_number == '-')) {
