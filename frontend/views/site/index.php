@@ -4,7 +4,6 @@
 <!--<h1>dashboard</h1>-->
 
 <div class="row">
-
     <div class="col-xs-12 col-md-6 ">
         <div class="panel panel-success ">
             <div class="panel-heading">
@@ -12,7 +11,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($judAs as $judA): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $judA->black_number; ?>&file_name=<?= $judA->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $judA->black_number; ?>&file_name=<?= $judA->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($judA->red_number == '-')) {
@@ -24,6 +23,7 @@
                     </a>
                     <br>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$judA->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($judA->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
@@ -48,7 +48,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($judBs as $judB): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $judB->black_number; ?>&file_name=<?= $judB->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $judB->black_number; ?>&file_name=<?= $judB->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($judB->red_number == '-')) {
@@ -59,6 +59,7 @@
                         ?>
                     </a>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$judB->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($judB->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
@@ -88,7 +89,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($kpss as $kps): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $kps->black_number; ?>&file_name=<?= $kps->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $kps->black_number; ?>&file_name=<?= $kps->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($kps->red_number == '-')) {
@@ -99,6 +100,7 @@
                         ?>
                     </a>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$kps->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($kps->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
@@ -124,7 +126,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($ksos as $kso): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $kso->black_number; ?>&file_name=<?= $kso->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $kso->black_number; ?>&file_name=<?= $kso->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($kso->red_number == '-')) {
@@ -135,6 +137,7 @@
                         ?>
                     </a>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$kso->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($kso->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
@@ -160,7 +163,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($tvbs as $tvb): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $tvb->black_number; ?>&file_name=<?= $tvb->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $tvb->black_number; ?>&file_name=<?= $tvb->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-calendar"></i>&nbsp;
                         <?php
                         if (!($tvb->red_number == '-')) {
@@ -171,6 +174,7 @@
                         ?>
                     </a>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$tvb->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($tvb->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
@@ -195,7 +199,7 @@
             </div>
             <div class="panel-body">
                 <?php foreach ($bbss as $bbs): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $bbs->black_number; ?>&file_name=<?= $bbs->file_name; ?>" target="_blank">
+                    <a href="?r=judgement/view_download&black_number=<?= $bbs->black_number; ?>&file_name=<?= $bbs->file_name; ?>" target="<?=$pageset['link_target']?>">
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($bbs->red_number == '-')) {
@@ -206,6 +210,7 @@
                         ?>
                     </a>
                     <div class="text-right">
+                        <i class="glyphicon glyphicon-eye-open"></i> <?=$bbs->transfer_status ;?>
                         <?php
                         $phpdate = strtotime($bbs->create_at);
                         echo "<i class=\"glyphicon glyphicon-time\"></i>&nbsp;" . date("d/m/Y", $phpdate);
