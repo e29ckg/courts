@@ -58,6 +58,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_a() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'หนังสือเวียน';
         $title['page'] = 'judgement/jud_a';
         $query = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนA', 'หนังสือเวียน']]);
@@ -73,6 +78,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -91,6 +97,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_b() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'หนังสือเวียน ภายใน';
         $title['page'] = 'judgement/jud_b';
         $query = Judgement::find()->where(['doc_type_id' => ['หนังสือเวียนB']]);
@@ -106,6 +117,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -113,6 +125,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_c() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'คำสัง ศยจ';
         $title['page'] = 'judgement/jud_c';
         $query = Judgement::find()->where(['doc_type_id' => ['คำสั่ง ศยจ']]);
@@ -128,6 +145,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -135,6 +153,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_d() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'คำสั่งสนง';
         $title['page'] = 'judgement/jud_d';
         $query = Judgement::find()->where(['doc_type_id' => ['คำสั่งสนง']]);
@@ -150,6 +173,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -157,6 +181,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_e() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'ตารางเวร';
         $title['page'] = 'judgement/jud_ำ';
         $query = Judgement::find()->where(['doc_type_id' => ['ตารงเวร']]);
@@ -172,6 +201,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -179,6 +209,11 @@ class JudgementController extends \yii\web\Controller {
     }
 
     public function actionJud_f() {
+        if (!(Yii::$app->user->isGuest)) {
+            $pageset['link_target'] = '_blank';
+        } else {
+            $pageset['link_target'] = '_self';
+        }
         $title['head'] = 'เอกสาร';
         $title['page'] = 'judgement/jud_f';
 
@@ -195,6 +230,7 @@ class JudgementController extends \yii\web\Controller {
                 ->all();
 
         return $this->render('jud_a', [
+                    'pageset' => $pageset,
                     'title' => $title,
                     'models' => $models,
                     'pagination' => $pagination,
@@ -214,12 +250,12 @@ class JudgementController extends \yii\web\Controller {
         $link .= $jud->urlfiles;
         $link .= $_GET['black_number'] . '/' . $_GET['file_name'];
 
-        $vblg = VbookLog::find()->where(['vbook_id' => $_GET['black_number'],'user_id' => Yii::$app->user->identity->id])->all();
-        if(empty($vblg)){       
-        $vbooklg->vbook_id = $_GET['black_number'];
-        $vbooklg->user_id = Yii::$app->user->identity->id;
-        $vbooklg->create_at = date("Y-m-d H:i:s");
-        $vbooklg->save(); 
+        $vblg = VbookLog::find()->where(['vbook_id' => $_GET['black_number'], 'user_id' => Yii::$app->user->identity->id])->all();
+        if (empty($vblg)) {
+            $vbooklg->vbook_id = $_GET['black_number'];
+            $vbooklg->user_id = Yii::$app->user->identity->id;
+            $vbooklg->create_at = date("Y-m-d H:i:s");
+            $vbooklg->save();
         }
 
         $jud = Judgement::findOne($_GET['black_number']);

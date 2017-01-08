@@ -19,7 +19,7 @@ $this->title = $title['head'];
             <div class="panel-body">
 
                 <?php foreach ($models as $model): ?>
-                    <a href="?r=judgement/view_download&black_number=<?= $model->black_number; ?>&file_name=<?= $model->file_name; ?>" target="_blank">                       
+                    <a href="?r=judgement/view_download&black_number=<?= $model->black_number; ?>&file_name=<?= $model->file_name; ?>" target="<?=$pageset['link_target']?>">                       
                         <i class="glyphicon glyphicon-bullhorn"></i>&nbsp;
                         <?php
                         if (!($model->red_number == '-')) {
